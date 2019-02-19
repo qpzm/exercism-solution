@@ -1,18 +1,26 @@
-PATTERN = /\w+'*\w+|\w/
-
-Phrase = Struct.new(:sentence) do
-  def word_count
-    counts = Hash.new { |hash, key| hash[key] = 0 }
-    count_helper words(sentence), counts
+class Phrase
+  def initialize(sentence)
+    @words = split_words sentence
   end
-end
 
-def count_helper(words, counts)
-  words.each { |w| counts[w] += 1 }
-  counts
-end
+  def word_count
+    counts = Hash.new(0)
+    count_helper words, counts
+  end
 
-def words(sentence)
-  sentence.downcase
-          .scan(PATTERN)
+  private
+
+  attr_reader :words
+
+  PATTERN = /\w+'*\w+|\w/
+
+  def count_helper(words, counts)
+    words.each { |w| counts[w] += 1 }
+    counts
+  end
+
+  def split_words(sentence)
+    sentence.downcase
+            .scan(PATTERN)
+  end
 end
