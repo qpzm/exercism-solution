@@ -1,24 +1,18 @@
+PATTERN = /\w+'*\w+|\w/
+
 Phrase = Struct.new(:sentence) do
   def word_count
-    count_helper(sentence.downcase
-                         .scan(/\w+'*\w+|\w/),
-                 {})
+    counts = Hash.new { |hash, key| hash[key] = 0 }
+    count_helper words(sentence), counts
   end
 end
 
-def count_helper(words, hash)
-  if words.empty?
-    hash
-  else
-    insert words[0], hash
-    count_helper words[1..-1], hash
-  end
+def count_helper(words, counts)
+  words.each { |w| counts[w] += 1 }
+  counts
 end
 
-def insert(word, hash)
-  if hash[word].nil?
-    hash[word] = 1
-  else
-    hash[word] += 1
-  end
+def words(sentence)
+  sentence.downcase
+          .scan(PATTERN)
 end
