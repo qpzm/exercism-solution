@@ -1,8 +1,10 @@
 class Raindrops
+  HASH = { 3=> "Pling", 5=> "Plang", 7=> "Plong" }.freeze
+
   def self.convert(num)
-    str = { Pling: 3, Plang: 5, Plong: 7 }
-          .map { |word, div| (num % div).zero? ? word : '' }
-          .join
+    str = HASH.select { |div, _| (num % div).zero? }
+              .values
+              .join
     str.empty? ? num.to_s : str
   end
 end
