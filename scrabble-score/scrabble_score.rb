@@ -1,21 +1,17 @@
 class Scrabble
-  String.class_eval do
-    def to_score
-      if length != 1
-        raise Exception 'The length of an argument string is not 1 in String#to_score'
-      end
+  TABLE = {
+    /[aeioulnrst]/ => 1,
+    /[dg]/         => 2,
+    /[bcmp]/       => 3,
+    /[fhvwy]/      => 4,
+    /[k]/          => 5,
+    /[jx]/         => 8,
+    /[qz]/         => 10,
+    /.|\s/         => 0
+  }.freeze
 
-      case self
-      when /[aeioulnrst]/ then 1
-      when /[dg]/ then 2
-      when /[bcmp]/ then 3
-      when /[fhvwy]/ then 4
-      when /[k]/ then 5
-      when /[jx]/ then 8
-      when /[qz]/ then 10
-      else 0
-      end
-    end
+  def self.to_score(char)
+    TABLE.find { |regex, _| char.match regex }[1]
   end
 
   def initialize(word)
@@ -23,21 +19,21 @@ class Scrabble
   end
 
   def score
-    @score ||= self.class.score_helper word
+    @score ||= score_helper
   end
 
   def self.score(word)
-    score_helper word
+    Scrabble.new(word)
+            .score
   end
 
   private
 
   attr_reader :word
 
-  def self.score_helper(word)
+  def score_helper
     word.downcase
         .each_char
-        .map(&:to_score)
-        .sum
+        .sum { |c| self.class.to_score c }
   end
 end
