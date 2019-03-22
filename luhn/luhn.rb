@@ -4,30 +4,29 @@ class Luhn
   end
 
   def self.valid?(input)
-    luhn = self.new input
-    luhn.valid?
-   end
+    (new input).valid?
+  end
 
   def valid?
-    input.gsub!(/\s/, '')
+    input.delete!(' ')
     return false if input.length < 2 || input.match?(/[^0-9]+/)
 
     (checksum % 10).zero?
   end
 
   private
+
   attr_accessor :input
 
   def checksum
     input.reverse
          .each_char.map(&:to_i)
-         .each_slice(2).to_a.map { |a, b| double_second a, b }
-         .reduce(:+)
+         .each_slice(2).to_a
+         .sum { |a, b = 0| a + double(b) }
   end
 
-  def double_second(fst, snd)
-    return fst if snd.nil?
-    fst + overflow(2 * snd)
+  def double(n)
+    overflow(2 * n)
   end
 
   def overflow(n)
