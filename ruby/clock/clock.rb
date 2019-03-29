@@ -1,25 +1,31 @@
 class Clock
   def initialize(hour: 0, minute: 0)
-    @hour = (hour + minute / 60) % 24
-    @minute = minute % 60
+    @minute = (minute + hour * 60) % DAY
   end
 
   def to_s
-    "%02d:%02d" % [hour, minute]
+    "%02d:%02d" % to_hour_min
   end
 
   def +(clock)
-    Clock.new(hour: hour + clock.hour, minute: minute + clock.minute).to_s
+    Clock.new(minute: minute + clock.minute)
   end
 
   def -(clock)
-    Clock.new(hour: hour - clock.hour, minute: minute - clock.minute).to_s
+    Clock.new(minute: minute - clock.minute)
   end
 
   def ==(clock)
-    hour == clock.hour && minute == clock.minute
+    minute == clock.minute
   end
 
   protected
-  attr_reader :hour, :minute
+  attr_reader :minute
+
+  def to_hour_min
+    [minute / 60, minute % 60]
+  end
+
+  private
+  DAY = 24 * 60
 end
