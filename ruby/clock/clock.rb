@@ -1,10 +1,10 @@
 class Clock
   def initialize(hour: 0, minute: 0)
-    @minute = (minute + hour * 60) % DAY
+    @minute = (minute + hour * 60) % MINUTES_IN_DAY
   end
 
   def to_s
-    "%02d:%02d" % to_hour_min
+     TIME_FORMAT % to_hour_min
   end
 
   def +(clock)
@@ -23,9 +23,10 @@ class Clock
   attr_reader :minute
 
   def to_hour_min
-    [minute / 60, minute % 60]
+    minute.divmod 60
   end
 
   private
-  DAY = 24 * 60
+  MINUTES_IN_DAY = 24 * 60
+  TIME_FORMAT = "%02d:%02d"
 end
