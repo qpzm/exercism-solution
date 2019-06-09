@@ -16,27 +16,28 @@ class TwelveDays
   ]
 
   def self.song
-    (1..12).map { |nth| "#{line nth}" }.join("\n")
+    song = new
+    (1..12).map { |nth| song.line nth }.join("\n")
   end
 
-  def self.line(nth)
-    <<~EOF
-      On the #{Number.ordinalize(nth)} day of Christmas my true love gave to me: #{presents(nth)}.
-    EOF
+  def line(nth)
+    "On the #{Number.ordinalize(nth)} day of Christmas my true love gave to me: " \
+    "#{to_phrase(presents(nth))}.\n"
   end
 
   private
-  def self.presents(n)
-    return present(1) if n == 1
-    present(n) + separator(n - 1) + presents(n - 1)
+
+  def to_phrase(presents)
+    presents[0] = "and " + presents[0] if presents.length > 1
+    presents.reverse.join(", ")
   end
 
-  def self.present(n)
+  def presents(n)
+    (1..n).map { |i| present i }
+  end
+
+  def present(n)
     Number.quantify(n) + " " + PRESENT[n - 1]
-  end
-
-  def self.separator(n)
-    n == 1 ? ', and ' : ', '
   end
 end
 

@@ -13,27 +13,30 @@ class TwelveDaysTest < Minitest::Test
 
   def test_the_first_day
     expected = "On the first day of Christmas my true love gave to me: a Partridge in a Pear Tree.\n"
-    assert_equal expected, TwelveDays.line(1)
+    assert_equal expected, TwelveDays.new.line(1)
   end
 
   def test_the_second_day
     expected = "On the second day of Christmas my true love gave to me: two Turtle Doves, and a Partridge in a Pear Tree.\n"
-    assert_equal expected, TwelveDays.line(2)
+    assert_equal expected, TwelveDays.new.line(2)
   end
 
   def test_the_third_day
+    #skip
     expected = "On the third day of Christmas my true love gave to me: three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-    assert_equal expected, TwelveDays.line(3)
+    assert_equal expected, TwelveDays.new.line(3)
   end
 
   def test_the_eleventh_day
+    #skip
     expected = "On the eleventh day of Christmas my true love gave to me: eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-    assert_equal expected, TwelveDays.line(11)
+    assert_equal expected, TwelveDays.new.line(11)
   end
 
   def test_the_twelfth_day
+    #skip
     expected = "On the twelfth day of Christmas my true love gave to me: twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.\n"
-    assert_equal expected, TwelveDays.line(12)
+    assert_equal expected, TwelveDays.new.line(12)
   end
 
   def test_the_whole_song
