@@ -16,8 +16,11 @@ class TwelveDays
   ]
 
   def self.song
-    song = new
-    (1..12).map { |nth| song.line nth }.join("\n")
+    new.song
+  end
+
+  def song
+    (1..12).map { |nth| line nth }.join("\n")
   end
 
   def line(nth)
@@ -37,7 +40,11 @@ class TwelveDays
   end
 
   def present(n)
-    Number.quantify(n) + " " + PRESENT[n - 1]
+    quantifier(n) + " " + PRESENT[n - 1]
+  end
+
+  def quantifier(n)
+    n == 1 ? 'a' : Number.cardinalize(n)
   end
 end
 
@@ -52,7 +59,7 @@ module Number
     ORDINAL[n - 1]
   end
 
-  def self.quantify(n)
-    n == 1 ? 'a' : CARDINAL[n - 1]
+  def self.cardinalize(n)
+    CARDINAL[n - 1]
   end
 end
