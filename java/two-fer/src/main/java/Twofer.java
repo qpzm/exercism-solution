@@ -3,6 +3,11 @@ public class Twofer {
         if(name == null) {
             name = "you";
         }
-        return(String.format("One for %s, one for me.", name));
+        String str = new StringBuilder()
+            .append("One for ")
+            .append(name)
+            .append(", one for me.")
+            .toString();
+        return str;
     }
 }
