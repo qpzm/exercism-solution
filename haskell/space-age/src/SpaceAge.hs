@@ -9,11 +9,11 @@ data Planet = Mercury
             | Uranus
             | Neptune
 
-yearInSeconds :: Float
-yearInSeconds = 31557600
+secondsInYear :: Float
+secondsInYear = 1.0 / 31557600.0
 
 ageOn :: Planet -> Float -> Float
-ageOn planet seconds = seconds / yearInSeconds / ratio planet
+ageOn planet = (*) $ secondsInYear / (ratio planet)
 
 ratio :: Planet -> Float
 ratio planet = case planet of
