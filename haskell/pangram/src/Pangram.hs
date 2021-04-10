@@ -2,7 +2,11 @@ module Pangram (isPangram) where
 import Data.Char (ord, toLower)
 import Data.List (nub)
 
+
 isPangram :: String -> Bool
+--Solution1 O(n^2)
+--isPangram = (==) 26 . length . filter (\c -> c `elem` ['a'..'z']) . nub . map toLower
+--Solution2
 isPangram str = all (>= 1) $ countChar str' zeros
   where str' = filter (\c -> c `elem` ['a'..'z']) $ map toLower str
         zeros = take 26 (repeat 0)
